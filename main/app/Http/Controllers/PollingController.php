@@ -19,11 +19,24 @@ class PollingController extends Controller
     {
         $user = auth()->user();
         $activePollings = Polling::where('is_active', 1)->first();
-        if (!$activePollings) {
-            return redirect('/dashboard/polling')->with('success', 'Tidak ada polling yang aktif saat ini.',);
+        $admin = $user->role->nama_role != 'admin' && $user->role->nama_role != 'kaprodi';
+
+        if ($activePollings) {
+            $hasVoted = PollingDetail::where('id_user', $user->id_user)
+                ->where('id_polling', $activePollings->id_polling)
+                ->exists();
+        } else {
+            $hasVoted = false;
         }
 
-        if ($user->role->nama_role != 'admin' && $user->role->nama_role != 'kaprodi') {
+        if ($hasVoted && $admin) {
+            return view('polling.index', [
+                'datas' => null,
+                'mks' => null,
+            ])->with('success', 'Terima kasih sudah melakukan polling');
+        }
+
+        if ($admin) {
             $mks = MataKuliah::where('id_program_studi', $user->id_program_studi)->get();
         } else {
             $mks = MataKuliah::all();
@@ -34,6 +47,7 @@ class PollingController extends Controller
             'mks' => $mks,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -51,6 +65,12 @@ class PollingController extends Controller
      */
     public function store(Request $request)
     {
+        $activePolling = Polling::where('is_active', 1)->first();
+        if ($activePolling) {
+            return redirect('/dashboard/polling')->with('errors',
+                'Tidak bisa membuat polling baru karena masih ada polling yang aktif.');
+        }
+
         $validateData = $request->validate([
             'id_polling' => 'required|max:5|unique:polling',
             'start_at' => 'required|date',
@@ -109,9 +129,19 @@ class PollingController extends Controller
 
     public function hasil()
     {
+        $this->authorize('kaprodi');
         return view('polling.hasil', [
             'datas' => Polling::all(),
         ]);
     }
+
+    public function makePolling()
+    {
+        $this->authorize('kaprodi');
+        return view('polling.make-polling', [
+            'datas' => Polling::all(),
+        ]);
+    }
+
 
 }

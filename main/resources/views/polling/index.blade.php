@@ -7,35 +7,31 @@
             <h3 class="h3">Polling Mata Kuliah Semester Antara</h3>
         </div>
         @if(session()->has('success'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" role="alert" id="myAlert">
                 {{session('success')}}
             </div>
+        @elseif(session()->has('errors'))
+            <div class="alert alert-danger d-flex align-items-center" role="alert" id="myAlert">
+                <div>
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    {{session('errors')}}
+                </div>
+            </div>
         @endif
-        <a href="/dashboard/polling/create" class="text-decoration-none badge bg-success">Create Polling
-            Baru
-        </a>
-        <a href="/dashboard/polling/hasil" class="text-decoration-none badge bg-success">Lihat Hasil
-            Polling
-        </a>
+        @can('kaprodi')
+            <a href="/dashboard/make-polling" class="text-decoration-none badge bg-success">Create Polling
+                Baru
+            </a>
+            <a href="/dashboard/polling-hasil" class="text-decoration-none badge bg-success mb-4">Lihat Hasil
+                Polling
+            </a>
+        @endcan
         @if($datas)
             <input type="hidden" name="id_polling" value="{{$datas->id_polling}}">
             <div class="my-2">Periode
                 buka: {{ \Carbon\Carbon::parse($datas->start_at)->format('d F Y') }}
                 - {{ \Carbon\Carbon::parse($datas->end_at)->format('d F Y') }}
-                <a href="/dashboard/polling/{{$datas->id_polling}}/edit"
-                   class="text-decoration-none badge bg-dark mb-2m s-2 mt-4">Edit Polling</a>
-                <form method="post" action="/dashboard/polling/{{$datas->id_polling}}"
-                      class="d-inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="badge bg-danger border-0"
-                            onclick="return confirm('Are you sure?')">
-                        Delete
-                    </button>
-                </form>
-                @endif
             </div>
-
             <form method="post" action="/dashboard/polling-detail">
                 @csrf
                 <div class="col-lg-5">
@@ -44,8 +40,7 @@
                         @foreach($mks as $mk)
                             <div class="form-check" required>
                                 <input type="hidden" name="id_polling" value="{{$datas->id_polling}}">
-                                <input class="form-check-input mata-kuliah
-                                @error('id_mataKuliah') is-invalid @enderror" type="checkbox"
+                                <input class="form-check-input mata-kuliah" type="checkbox"
                                        value="{{$mk->id_mataKuliah}}"
                                        data-sks="{{$mk->sks}}" id="id_mataKuliah" name="id_mataKuliah[]">
                                 <label class="form-check-label" for="Kode - Nama Matakuliah">
@@ -61,8 +56,12 @@
                 <p id="error" class="text-danger"></p>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-
-            <canvas class="my-4 w-100" id="myChart" width="900" height="500"></canvas>
+        @else
+            <div class="alert alert-info" role="alert">
+                Tidak ada polling yang dibuka.
+            </div>
+        @endif
+        <canvas class="my-4 w-100" id="myChart" width="900" height="500"></canvas>
     </main>
 @endsection
 

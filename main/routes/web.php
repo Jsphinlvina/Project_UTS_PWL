@@ -35,7 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/polling-detail',
         \App\Http\Controllers\PollingDetailController::class);
 
-    Route::get('/dashboard/polling/hasil', [\App\Http\Controllers\PollingController::class, 'hasil']);
+    Route::get('/dashboard/polling-hasil', [\App\Http\Controllers\PollingController::class, 'hasil'])
+        ->name('polling.hasil');
+
+    Route::get('/dashboard/make-polling', [\App\Http\Controllers\PollingController::class, 'makePolling'])
+        ->name('polling.make-polling');
 
 //    Route::get('/dashboard/polling-matakuliah/hasil-detail',
 //        [\App\Http\Controllers\PollingDetailController::class, 'results']);
