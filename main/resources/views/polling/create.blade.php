@@ -6,7 +6,7 @@
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h3 class="h2">Create Polling Baru </h3>
         </div>
-        <form method="post" action="/dashboard/polling-matakuliah">
+        <form method="post" action="/dashboard/polling">
             @csrf
             <div class="col-lg-5">
                 <div class="mb-3">

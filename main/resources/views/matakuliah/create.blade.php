@@ -65,7 +65,7 @@
                     <label for="Kode Program Studi" class="form-label">Kode Program Studi</label>
                     <select class="form-select" name="id_program_studi" required>
                         @foreach($ps as $mk)
-                            @if(old('kode_ps') == $mk->id_program_studi)
+                            @if(old('id_program_studi') == $mk->id_program_studi)
                                 <option value="{{$mk->id_program_studi}}"
                                         selected>{{$mk->nama_program_studi}}</option>
                             @else
@@ -80,7 +80,7 @@
                     <label for="Tahun Kurikulum" class="form-label">Tahun</label>
                     <select class="form-select" name="id_kurikulum" required>
                         @foreach($kurikulum as $mk)
-                            @if(old('kode_ps') == $mk->id_kurikulum)
+                            @if(old('id_kurikulum') == $mk->id_kurikulum)
                                 <option value="{{$mk->id_kurikulum}}"
                                         selected>{{$mk->tahun}}</option>
                             @else

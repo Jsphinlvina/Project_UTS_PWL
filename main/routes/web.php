@@ -30,13 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('/dashboard/users', \App\Http\Controllers\UserController::class)
         ->middleware('kaprodi');
 
-    Route::resource('/dashboard/polling-matakuliah', \App\Http\Controllers\PollingController::class);
+    Route::resource('/dashboard/polling', \App\Http\Controllers\PollingController::class);
 
-//    Route::resource('/dashboard/polling-matakuliah-detail',
-//        \App\Http\Controllers\PollingDetailController::class);
+    Route::resource('/dashboard/polling-detail',
+        \App\Http\Controllers\PollingDetailController::class);
 
-/*    Route::get('/dashboard/polling-matakuliah/hasil',
-        [\App\Http\Controllers\PollingDetailController::class, 'hasil']);*/
+    Route::get('/dashboard/polling/hasil', [\App\Http\Controllers\PollingController::class, 'hasil']);
+
 //    Route::get('/dashboard/polling-matakuliah/hasil-detail',
 //        [\App\Http\Controllers\PollingDetailController::class, 'results']);
 

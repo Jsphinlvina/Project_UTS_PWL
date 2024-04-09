@@ -16,7 +16,7 @@ class PollingDetailController extends Controller
      */
     public function index()
     {
-        return redirect('/dashboard/polling-matakuliah');
+        return redirect('/dashboard/polling');
     }
 
     /**
@@ -46,12 +46,12 @@ class PollingDetailController extends Controller
                 'id_mataKuliah' => $id_mataKuliah,
             ]);
         }
-        return redirect('/dashboard/polling-matakuliah-detail')-> with('success','Polling Berhasil!',);
+        return redirect('/dashboard/polling-detail')-> with('success','Polling Berhasil!',);
     }
 
     public function hasil()
     {
-        return view('polling.hasil',[
+        return view('polling.hasil-detail',[
             'datas' => PollingDetail::all(),
         ]);
     }

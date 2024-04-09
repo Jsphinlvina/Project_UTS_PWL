@@ -17,19 +17,23 @@ class PollingController extends Controller
      */
     public function index()
     {
-        return view('polling.index',[
-            'datas' => Polling::all(),
-            'mks' => MataKuliah::all(),
-        ]);
-//        return redirect('/dashboard/polling-matakuliah-detail');
-    }
+        $user = auth()->user();
+        $activePollings = Polling::where('is_active', 1)->first();
+        if (!$activePollings) {
+            return redirect('/dashboard/polling')->with('success', 'Tidak ada polling yang aktif saat ini.',);
+        }
 
-//    public function results()
-//    {
-//        return view('polling.hasil',[
-//            'datas' => Polling::all(),
-//        ]);
-//    }
+        if ($user->role->nama_role != 'admin' && $user->role->nama_role != 'kaprodi') {
+            $mks = MataKuliah::where('id_program_studi', $user->id_program_studi)->get();
+        } else {
+            $mks = MataKuliah::all();
+        }
+
+        return view('polling.index', [
+            'datas' => $activePollings,
+            'mks' => $mks,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +41,7 @@ class PollingController extends Controller
     public function create()
     {
         $this->authorize('kaprodi');
-        return view('polling.create',[
+        return view('polling.create', [
             'data' => Polling::all()
         ]);
     }
@@ -51,11 +55,11 @@ class PollingController extends Controller
             'id_polling' => 'required|max:5|unique:polling',
             'start_at' => 'required|date',
             'end_at' => 'required|date',
-            'is_active'=> 'required|max:2'
+            'is_active' => 'required|max:2'
         ]);
 
         Polling::create($validateData);
-        return redirect('/dashboard/polling-matakuliah')-> with('success','Polling Has Been Created',);
+        return redirect('/dashboard/polling')->with('success', 'Polling Has Been Created',);
     }
 
     /**
@@ -72,7 +76,7 @@ class PollingController extends Controller
     public function edit(Polling $polling)
     {
         $this->authorize('kaprodi');
-        return view('polling.edit',[
+        return view('polling.edit', [
             'datas' => $polling
         ]);
     }
@@ -82,7 +86,15 @@ class PollingController extends Controller
      */
     public function update(Request $request, Polling $polling)
     {
-        //
+        $validateData = $request->validate([
+            'start_at' => 'required|date',
+            'end_at' => 'required|date',
+            'is_active' => 'required|max:2'
+        ]);
+
+        $polling->update($validateData);
+        return redirect('/dashboard/polling')->with('success', 'Polling Has Been Updated');
+
     }
 
     /**
@@ -92,8 +104,14 @@ class PollingController extends Controller
     {
         $this->authorize('kaprodi');
         Polling::destroy($polling->id_polling);
-        return redirect('/dashboard/polling-matakuliah')-> with('success','Polling Has Been Deleted',);
+        return redirect('/dashboard/polling')->with('success', 'Polling Has Been Deleted',);
     }
 
+    public function hasil()
+    {
+        return view('polling.hasil', [
+            'datas' => Polling::all(),
+        ]);
+    }
 
 }
