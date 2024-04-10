@@ -16,7 +16,9 @@ class PollingDetailController extends Controller
      */
     public function index()
     {
-        return redirect('/dashboard/polling');
+        return view('dashboard.index', [
+            'datas' => PollingDetail::with(['users', 'polling', 'mataKuliah'])->get(),
+        ]);
     }
 
     /**
@@ -44,7 +46,7 @@ class PollingDetailController extends Controller
         }
 
         if ($totalSKS > 9) {
-            return redirect('/dashboard/polling')->with('errors','Total SKS tidak boleh lebih dari 9');
+            return redirect('/dashboard/polling')->with('errors', 'Total SKS tidak boleh lebih dari 9');
         }
 
         $validateData['id_user'] = auth()->user()->id_user;
@@ -58,11 +60,14 @@ class PollingDetailController extends Controller
         return redirect('/dashboard/polling')->with('success', 'Polling Berhasil!',);
     }
 
-
-    public function hasil()
+    public function detailHasil($id_polling, $id_mataKuliah)
     {
+        $pollingDetail = PollingDetail::where('id_polling', $id_polling)
+            ->where('id_mataKuliah', $id_mataKuliah)
+            ->get();
+
         return view('polling.hasil-detail', [
-            'datas' => PollingDetail::all(),
+            'datas' => $pollingDetail,
         ]);
     }
 
