@@ -19,8 +19,7 @@
             </div>
         @endif
         @can('kaprodi')
-            <a href="/dashboard/make-polling" class="text-decoration-none badge bg-success">Create Polling
-                Baru
+            <a href="/dashboard/make-polling" class="text-decoration-none badge bg-success">Lihat Rencana Polling
             </a>
             <a href="/dashboard/polling-hasil" class="text-decoration-none badge bg-success mb-4">Lihat Hasil
                 Polling
