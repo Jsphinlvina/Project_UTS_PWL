@@ -2,10 +2,9 @@
 
 Selamat datang di repositori GitHub kami untuk Tugas Besar Ujian Tengah Semester mata kuliah Pemrograman Web Lanjut. Kami adalah Kelompok 4 yang terdiri dari:
 
-2272008 - Elmosius Suli - Elmosius
-2272004 - Jessica Alvina Luwia - Jssicalvina 
-
-2272029 - Josephine Alvina Luwia - Jsphinlvina 
+- 2272008 - Elmosius Suli - Elmosius
+- 2272004 - Jessica Alvina Luwia - Jssicalvina 
+- 2272029 - Josephine Alvina Luwia - Jsphinlvina 
 
  ## 📚 Daftar Branch
 -  Main
