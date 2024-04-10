@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', function () {
-        return view('dashboard.index');
-    });
+    Route::get('/', [\App\Http\Controllers\PollingDetailController::class, 'index'])
+        ->name('dashboard.index');
+
     Route::resource('/dashboard/mata-kuliah', \App\Http\Controllers\MataKuliahController::class)
         ->middleware('kaprodi');
 
@@ -36,13 +36,14 @@ Route::middleware('auth')->group(function () {
         \App\Http\Controllers\PollingDetailController::class);
 
     Route::get('/dashboard/polling-hasil', [\App\Http\Controllers\PollingController::class, 'hasil'])
-        ->name('polling.hasil');
+        ->name('polling.hasil')->middleware('kaprodi');
 
     Route::get('/dashboard/make-polling', [\App\Http\Controllers\PollingController::class, 'makePolling'])
-        ->name('polling.make-polling');
+        ->name('polling.make-polling')->middleware('kaprodi');
 
-//    Route::get('/dashboard/polling-matakuliah/hasil-detail',
-//        [\App\Http\Controllers\PollingDetailController::class, 'results']);
+    Route::get('/dashboard/polling-detail-hasil/{polling_detail}/{id_mataKuliah}',
+        [\App\Http\Controllers\PollingDetailController::class, 'detailHasil'])
+        ->name('polling.detailHasil')->middleware('kaprodi');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

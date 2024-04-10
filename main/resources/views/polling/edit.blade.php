@@ -2,10 +2,22 @@
 
 @section('content')
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
         <div
             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h3 class="h2">Edit Polling </h3>
         </div>
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="post" action="/dashboard/polling/{{$datas->id_polling}}">
             @method('put')
             @csrf
