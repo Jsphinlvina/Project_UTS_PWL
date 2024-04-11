@@ -7,7 +7,7 @@
             <div class="container d-flex justify-content-between align-items-center">
                 <div>
                     <h1>Dashboard</h1>
-                    <p>Hi! {{auth()->user()->nama_user}}, nice to see you again</p>
+                    <p class="ps-1">Hi! {{auth()->user()->nama_user}}, nice to see you again</p>
                 </div>
                 <img class="dashboard-img p-3" src="{{asset('/img/awan.png')}}" alt="cloud">
             </div>

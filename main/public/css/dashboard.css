@@ -189,3 +189,7 @@ th:first-child, td:first-child{
 .modal-keterangan{
    font-size: 14px;
 }
+
+input.form-control::placeholder{
+    opacity: 0.6;
+}
