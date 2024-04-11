@@ -61,7 +61,7 @@
                                     <form method="post" action="/dashboard/users/{{$user->id_user}}" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button class="badge bg-danger border-0"
+                                        <button class="btn btn-danger pt-0 pb-1 px-2"
                                                 onclick="return confirm('Are you sure?')">
                                             <i class="bi bi-trash3-fill" data-bs-toggle="modal"
                                                data-bs-target="#exampleModal"></i>
