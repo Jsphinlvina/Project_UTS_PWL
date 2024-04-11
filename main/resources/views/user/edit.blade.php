@@ -9,50 +9,54 @@
             </div>
         </div>
 
-        <div class="card">
-            <form method="post" action="/dashboard/users{{$datas->id_user}}">
+        <div class="card bg-light-subtle shadow border-0 rounded-3">
+            <form method="post" action="/dashboard/users{{$datas->id_user}}" class="p-4">
                 @method('put')
                 @csrf
-                <div class="col-lg-5">
-                    <div class="mb-3">
+                <div class="mb-3 input-group">
+                    <div class="col-4">
                         <label for="id_user" class="form-label">Id User</label>
                         <input type="text" class="form-control @error('id_user') is-invalid @enderror" id="id_user"
                                name="id_user" required autofocus
-                               value="{{ old('id_user', $datas->id_user) }}" readonly>
+                               value="{{ old('id_user', $datas->id_user) }}"
+                               readonly
+                               placeholder="Not be greater than 5 Character">
                         @error('id_user')
                         <div class="invalid-feedback">
                             {{$message}}
                         </div>
                         @enderror
                     </div>
-
-                    <div class="mb-3">
-                        <label for="nama_user" class="form-label">Nama</label>
+                    <div class="ps-4 col-8">
+                        <label for="nama_user" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control @error('nama_user') is-invalid @enderror" id="nama_user"
                                name="nama_user"
                                autofocus
-                               value="{{ old('nama_user', $datas->nama_user) }}">
+                               value="{{ old('nama_user', $datas->nama_user) }}"
+                               placeholder="John Doe">
                         @error('nama_user')
                         <div class=" invalid-feedback">
                             {{$message}}
                         </div>
                         @enderror
                     </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                               name="email"
-                               autofocus
-                               value="{{ old('email', $datas->email) }}">
-                        @error('email')
-                        <div class=" invalid-feedback">
-                            {{$message}}
-                        </div>
-                        @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                           name="email"
+                           autofocus
+                           value="{{ old('email', $datas->email) }}"
+                           placeholder="JohnDoe@gmail.com">
+                    @error('email')
+                    <div class=" invalid-feedback">
+                        {{$message}}
                     </div>
+                    @enderror
+                </div>
 
-                    <div class="mb-3">
+                <div class="mb-3 input-group">
+                    <div class="col-6 pe-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                                id="password"
@@ -63,8 +67,7 @@
                         </div>
                         @enderror
                     </div>
-
-                    <div class="mb-3">
+                    <div class="col-6 ps-3">
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                                id="password_confirmation" name="password_confirmation" autofocus
@@ -75,8 +78,9 @@
                         </div>
                         @enderror
                     </div>
-
-                    <div class="mb-3">
+                </div>
+                <div class="mb-3 input-group">
+                    <div class="col-6 pe-3">
                         <label for="id_role" class="form-label">role</label>
                         <select class="form-select" name="id_role" required>
                             @foreach($roles as $user)
@@ -89,8 +93,7 @@
                             @endforeach
                         </select>
                     </div>
-
-                    <div class="mb-3">
+                    <div class="col-6 ps-3">
                         <label for="id_program_studi" class="form-label">Kode Program Studi</label>
                         <select class="form-select" name="id_program_studi" required>
                             @foreach($kode_ps as $user)
@@ -104,8 +107,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Edit User</button>
                 </div>
+                <button type="submit" class="btn btn-primary">Edit User</button>
             </form>
         </div>
     </main>

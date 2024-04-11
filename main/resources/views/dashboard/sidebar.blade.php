@@ -1,4 +1,4 @@
-<div class="sidebarcol-md-3 col-lg-2 p-0 nav-background" id="sidemenu">
+<div class="sidebarcol-md-3 col-lg-2 p-0 nav-background position-fixed" id="sidemenu">
    <div class="offcanvas-md offcanvas-end " tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
       <div class="offcanvas-header">
          <h5 class="offcanvas-title" id="sidebarMenuLabel">Universitas Kristen Maranatha</h5>
