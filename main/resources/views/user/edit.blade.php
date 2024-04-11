@@ -10,7 +10,7 @@
         </div>
 
         <div class="card bg-light-subtle shadow border-0 rounded-3">
-            <form method="post" action="/dashboard/users{{$datas->id_user}}" class="p-4">
+            <form method="post" action="/dashboard/users/{{$datas->id_user}}" class="p-4">
                 @method('put')
                 @csrf
                 <div class="mb-3 input-group">
@@ -57,7 +57,7 @@
 
                 <div class="mb-3 input-group">
                     <div class="col-6 pe-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Old Password</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                                id="password"
                                name="password" value="{{ old('password',$datas->password) }}" autofocus>
@@ -68,7 +68,7 @@
                         @enderror
                     </div>
                     <div class="col-6 ps-3">
-                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <label for="password_confirmation" class="form-label">New Password</label>
                         <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                                id="password_confirmation" name="password_confirmation" autofocus
                                value="{{ old('password', $datas->password) }}">

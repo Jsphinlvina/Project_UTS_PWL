@@ -16,6 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        return view('user.index', [
             'data' => User::all()
         ]);
     }
@@ -26,6 +27,7 @@ class UserController extends Controller
     public function create()
     {
         $this->authorize('admin');
+        return view('user.create', [
             'data' => User::all(),
             'roles' => Role::all(),
             'kode_ps' => ProgramStudi::all()
@@ -49,7 +51,7 @@ class UserController extends Controller
 
         $validateData['password'] = Hash::make($validateData['password']);
         User::create($validateData);
-
+        return redirect('/dashboard/users')-> with('success','New Account Has Been Created',);
     }
 
     /**
@@ -66,6 +68,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $this->authorize('admin');
+        return view('user.edit', [
             'datas' => $user,
             'roles' => Role::all(),
             'kode_ps' => ProgramStudi::all()
@@ -87,7 +90,7 @@ class UserController extends Controller
         ]);
 
         $validateData['password'] = Hash::make($validateData['password']);
-        User::update($validateData);
+        $user::update($validateData);
         return redirect('/dashboard/users')->with('success', ' Account Has Been Updated',);
     }
 
@@ -98,5 +101,6 @@ class UserController extends Controller
     {
         $this->authorize('admin');
         User::destroy($user->id_user);
+        return redirect('/dashboard/users')-> with('success','Account Has Been Deleted',);
     }
 }
